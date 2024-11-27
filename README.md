@@ -11,8 +11,8 @@ Please see below a list of available APIs:
 
 - List Rural Producers: producers/ [GET]
 - Add a Rural Producer: producers/ [POST]
-- Update a Rural Producer: producers/<id> [PUT]
-- Delete a Rural Producer: producers/<id> [DELETE]
+- Update a Rural Producer: producers/id [PUT]
+- Delete a Rural Producer: producers/id [DELETE]
 - List Rural Producers by State: producers/list/state
 - List Rural Producers by Crop: producers/list/crop
 - List Rural Producers by Area Usage: producers/list/area
