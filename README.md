@@ -6,15 +6,16 @@ This is a demo of Web API implementation using Django DRF (Django REST framework
 
 * Usage of solution:
 - The solution can be tested online in the following link: http://206.81.10.170:8008/api/ (if you have issues to access the solution, please let me know)
-- Please see below a list of available APIs:
 
-= List Rural Producers: producers/ [GET]
-= Add a Rural Producer: producers/ [POST]
-= Update a Rural Producer: producers/<id> [PUT]
-= Delete a Rural Producer: producers/<id> [DELETE]
-= List Rural Producers by State: producers/list/state
-= List Rural Producers by Crop: producers/list/crop
-= List Rural Producers by Area Usage: producers/list/area
+Please see below a list of available APIs:
+
+- List Rural Producers: producers/ [GET]
+- Add a Rural Producer: producers/ [POST]
+- Update a Rural Producer: producers/<id> [PUT]
+- Delete a Rural Producer: producers/<id> [DELETE]
+- List Rural Producers by State: producers/list/state
+- List Rural Producers by Crop: producers/list/crop
+- List Rural Producers by Area Usage: producers/list/area
 
 About the solution's description, please see details below:
 
