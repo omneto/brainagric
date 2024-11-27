@@ -1,0 +1,40 @@
+from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .models import RuralProducer
+from .serializers import RuralProducerSerializer
+
+@api_view(['GET'])
+def ApiOverview(request):
+    api_urls = {
+        'Listar Produtores': 'producers/',
+        'Dados por Estado':'producers/?data=state',
+        'Dados por Cultura': 'producers/?data=crop',
+        'Dados por Uso de Solo':'producers/?data=area',
+        'Adicionar': 'producers/create',
+        'Atualizar': 'producers/update/id',
+        'Excluir': 'producers/delete/id'
+    }
+
+    return Response(api_urls)
+
+@api_view(['GET'])
+def list_view_rural_producer(request):
+    if request.query_params:
+        ruralProducers = RuralProducer.objects.filter(**request.query_params.dict())
+    else:
+        ruralProducers = RuralProducer.objects.all()
+ 
+    if ruralProducers:
+        serializer = RuralProducerSerializer(items, many=True)
+        return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+
+
+#class RuralProducerList(generics.ListCreateAPIView):
+#
+#    queryset = RuralProducer.objects.all()
+#    serializer_class = RuralProducerSerializer
