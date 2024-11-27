@@ -1,3 +1,5 @@
+from django.db.models import Count,Sum
+from django.db.models import F
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.decorators import api_view
@@ -8,6 +10,9 @@ from .models import Crop
 from .models import RuralProducer
 from .serializers import CropSerializer
 from .serializers import RuralProducerSerializer
+from .serializers import RuralProducerListStateSerializer
+from .serializers import RuralProducerListCropSerializer
+from .serializers import RuralProducerListAreaSerializer
 
 @api_view(['GET'])
 def ApiOverview(request):
@@ -94,7 +99,21 @@ class RuralProducerDetailApiView(APIView):
 
 class RuralProducerListByState(generics.ListAPIView):
 
-#    queryset = RuralProducer.objects.all()
-#    serializer_class = RuralProducerSerializer
+    serializer_class = RuralProducerListStateSerializer
     def get_queryset(self):
-          return RuralProducer.objects.values('state').annotate(count_state=Count('state')).order_by()
+          return RuralProducer.objects.values('state').annotate(count_state=Count('state')).order_by('state')
+
+class RuralProducerListByCrop(generics.ListAPIView):
+
+    serializer_class = RuralProducerListCropSerializer
+    def get_queryset(self):
+         return RuralProducer.objects.all().prefetch_related('crops').values(crop_name=F('crops__name')) \
+              .annotate(count_crop=Count('crops')).order_by('-count_crop')
+
+class RuralProducerListByArea(generics.ListAPIView):
+
+    serializer_class = RuralProducerListAreaSerializer
+    def get_queryset(self):
+          return RuralProducer.objects.values('id','producerName') \
+              .annotate(total_area=Sum('plantingArea')+Sum('preservationArea')) \
+              .order_by('-total_area')
